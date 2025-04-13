@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Skills | Lavanya Mukkapati{% endblock %}
+
+{% block content %}
+<section class="skills-page">
+    <h1 class="page-title fade-in">Technical Skills</h1>
+
+    {% set categories = ['Frontend', 'Backend', 'Cloud', 'Tools', 'ML/AI', 'Soft Skills', 'Concepts'] %}
+    {% for category in categories %}
+    <div class="skill-category fade-in">
+        <h2>{{ category }}</h2>
+        <div class="skill-grid">
+            {% for skill in skills %}
+                {% if skill.category == category %}
+                <div class="skill-icon-box" onclick="showSkillModal({{ skill.id }})">
+                    <i class="{{ skill.icon_class }}"></i>
+                    <span>{{ skill.name }}</span>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Modal for Skill Info -->
+    <div id="skill-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeSkillModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+            <p><strong>Category:</strong> <span id="modal-category"></span></p>
+            <div id="modal-rating"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const skills = {{ skills | tojson | safe }};
+
+    function showSkillModal(skillId) {
+        const skill = skills.find(s => s.id === skillId);
+        if (!skill) return;
+
+        document.getElementById("modal-title").innerText = skill.name || "Unnamed Skill";
+        document.getElementById("modal-description").innerText =
+            skill.description && skill.description.trim() !== ""
+                ? skill.description
+                : "No description available.";
+        document.getElementById("modal-category").innerText = skill.category || "N/A";
+
+        const ratingDiv = document.getElementById("modal-rating");
+        ratingDiv.innerHTML = '<strong>Rating:</strong> ';
+        if (skill.rating && skill.rating > 0) {
+            for (let i = 1; i <= 5; i++) {
+                ratingDiv.innerHTML += i <= skill.rating
+                    ? '<i class="fas fa-star" style="color:#00c6ff;"></i>'
+                    : '<i class="far fa-star" style="color:#777;"></i>';
+            }
+        } else {
+            ratingDiv.innerHTML += 'No rating available.';
+        }
+
+        document.getElementById("skill-modal").style.display = "block";
+    }
+
+    function closeSkillModal() {
+        document.getElementById("skill-modal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById("skill-modal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Home | Lavanya Mukkapati{% endblock %}
+
+{% block content %}
+
+<section class="home-section">
+    <div class="intro-box fade-in">
+        <img src="/static/img/{{ about.profile_image }}" class="profile-img" alt="Profile Image">
+
+        <div class="intro-text">
+            <h1>Hello, I'm <span>{{ about.full_name }}</span></h1>
+            <h3><span class="typed-text"></span></h3>
+            <p>{{ about.bio }}</p>
+
+            <div class="home-buttons">
+                <a href="/static/docs/Lavanya_Mukkapati_Resume.pdf" class="btn" download>Download Resume</a>
+                <a href="/skills" class="btn outline">View Skills</a>
+            </div>
+
+            <div class="social-icons">
+                <a href="mailto:{{ about.email }}"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/lavanya-mukkapati" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Lavanya2939" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <section id="skills-section">
+        <!-- skills preview -->
+      </section>
+      
+</section>
+
+{% endblock %}

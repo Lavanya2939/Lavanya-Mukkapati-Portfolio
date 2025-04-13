@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Experience | Lavanya Mukkapati{% endblock %}
+
+{% block content %}
+<section class="experience-page">
+    <h1 class="page-title fade-in">Professional Experience</h1>
+    
+    <div class="timeline">
+        {% for job in experience %}
+        <div class="timeline-entry fade-in">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <h2>{{ job.role }}</h2>
+                <p class="company"><strong>{{ job.company }}</strong> | {{ job.location }}</p>
+                <p class="date"><i class="fas fa-calendar-alt"></i> {{ job.start_date }} – {{ job.end_date }}</p>
+                <p class="desc">{{ job.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

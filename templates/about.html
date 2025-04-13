@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}About Me | Lavanya Mukkapati{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <div class="about-wrapper">
+        <div class="about-text fade-in">
+            <h1>About Me</h1>
+            <p>{{ about.bio }}</p>
+            <div class="contact-icons">
+                <a href="mailto:{{ about.email }}"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/lavanya-mukkapati" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <div class="education-section fade-in">
+            <h2>Education</h2>
+            <div class="edu-timeline">
+                {% for edu in education %}
+                <div class="edu-card">
+                    <h3>{{ edu.degree }}</h3>
+                    <p><i class="fas fa-university"></i> {{ edu.institution }} – {{ edu.location }}</p>
+                    <p><i class="fas fa-calendar-alt"></i> {{ edu.year_range }}</p>
+                    <p><i class="fas fa-star"></i> GPA: {{ edu.gpa }}</p>
+                    <p><i class="fas fa-info-circle"></i> {{ edu.notes }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
