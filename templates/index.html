@@ -1,34 +1,41 @@
 {% extends 'base.html' %}
-{% block title %}Home | Lavanya Mukkapati{% endblock %}
+{% block title %}Home | {{ about.full_name or 'Lavanya Mukkapati' }}{% endblock %}
 
 {% block content %}
-
 <section class="home-section">
     <div class="intro-box fade-in">
-        <img src="/static/img/{{ about.profile_image }}" class="profile-img" alt="Profile Image">
 
+        <!-- 👤 Profile Image -->
+        <img src="/static/img/{{ about.profile_image or 'default.jpg' }}"
+             class="profile-img"
+             alt="{{ about.full_name or 'Developer' }}"
+             onerror="this.onerror=null;this.src='/static/img/default.jpg';">
+
+        <!-- 👋 Intro Text -->
         <div class="intro-text">
-            <h1>Hello, I'm <span>{{ about.full_name }}</span></h1>
+            <h1>Hello, I'm <span>{{ about.full_name or 'Lavanya Mukkapati' }}</span></h1>
             <h3><span class="typed-text"></span></h3>
-            <p>{{ about.bio }}</p>
+            <p>{{ about.bio or "Welcome to my portfolio. I’m passionate about technology, development, and AI." }}</p>
 
+            <!-- 🎯 Buttons -->
             <div class="home-buttons">
-                <a href="/static/docs/Lavanya_Mukkapati_Resume.pdf" class="btn" download>Download Resume</a>
+                <a href="{{ about.resume_link or '/static/docs/Lavanya_Mukkapati_Resume.pdf' }}" class="btn" download>Download Resume</a>
                 <a href="/skills" class="btn outline">View Skills</a>
             </div>
 
+            <!-- 🔗 Social Links -->
             <div class="social-icons">
+                {% if about.email %}
                 <a href="mailto:{{ about.email }}"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/lavanya-mukkapati" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/Lavanya2939" target="_blank"><i class="fab fa-github"></i></a>
+                {% endif %}
+                {% if about.linkedin %}
+                <a href="{{ about.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if about.github %}
+                <a href="{{ about.github }}" target="_blank"><i class="fab fa-github"></i></a>
+                {% endif %}
             </div>
         </div>
     </div>
-
-    <section id="skills-section">
-        <!-- skills preview -->
-      </section>
-      
 </section>
-
 {% endblock %}

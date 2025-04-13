@@ -1,19 +1,29 @@
 {% extends 'base.html' %}
-{% block title %}About Me | Lavanya Mukkapati{% endblock %}
+{% block title %}About Me | {{ about.full_name or "Lavanya Mukkapati" }}{% endblock %}
 
 {% block content %}
-<section class="about-page">
+<section class="about-page fade-in">
     <div class="about-wrapper">
-        <div class="about-text fade-in">
+
+        <!-- ✅ About Text Section -->
+        <div class="about-text">
             <h1>About Me</h1>
-            <p>{{ about.bio }}</p>
+            <p>{{ about.bio or "I'm a passionate developer eager to solve real-world problems with technology." }}</p>
+
             <div class="contact-icons">
+                {% if about.email %}
                 <a href="mailto:{{ about.email }}"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/lavanya-mukkapati" target="_blank"><i class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if about.linkedin %}
+                <a href="{{ about.linkedin }}" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                {% endif %}
             </div>
         </div>
 
-        <div class="education-section fade-in">
+        <!-- 🎓 Education Section -->
+        <div class="education-section">
             <h2>Education</h2>
             <div class="edu-timeline">
                 {% for edu in education %}
@@ -22,11 +32,14 @@
                     <p><i class="fas fa-university"></i> {{ edu.institution }} – {{ edu.location }}</p>
                     <p><i class="fas fa-calendar-alt"></i> {{ edu.year_range }}</p>
                     <p><i class="fas fa-star"></i> GPA: {{ edu.gpa }}</p>
+                    {% if edu.notes %}
                     <p><i class="fas fa-info-circle"></i> {{ edu.notes }}</p>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
         </div>
+
     </div>
 </section>
 {% endblock %}

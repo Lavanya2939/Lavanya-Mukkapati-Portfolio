@@ -1,3 +1,4 @@
-# requirements.txt
-flask
-pymysql
+Flask
+firebase-admin
+gunicorn
+jinja2
